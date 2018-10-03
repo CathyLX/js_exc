@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<title>exc</title>
+		<style>
+			#content {
+				display: flex;
+				align-items: center;
+			}
+			#input {
+				width: 200px;
+				height: 50px;
+				resize: none;
+			}
+			#button {
+				border: none;
+				background-color: #2f54eb;
+				color: #fff;
+				padding: 0 12px;
+				border-radius: 50px;
+				margin: 0 20px;
+				box-sizing: border-box;
+				width: 56px;
+				cursor: pointer;
+			}
+			#result {
+				border: 1px solid #ddd;
+				width: 400px;
+				height: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<h3>金额大写转换</h3>
+		<div id="content">
+			<textarea id="input" autofocus></textarea>
+			<span id='button' onClick="doTransform()">
+				转换
+			</span>
+			<div id='result'></div>
+		</div>
+		
+		<script>
+			function transform (val){
+				var replaceArr = ['零','壹','贰','叁','肆','伍','陆','柒','捌','玖'],
+					unitArr = ['','拾','佰','仟','万','拾','佰','仟','亿','拾','佰','仟','兆','拾','佰','仟'],
+					result = '';
+
+				if (val.indexOf('.') > -1) {
+					var decimal = val.split('.')[1];
+					val = val.split('.')[0];
+
+					if (decimal && decimal !== ('00' && '0')) {
+						let a = decimal[0] !== '0' ? replaceArr[decimal[0]] + '角' : '零',
+						    b = decimal[1] && decimal[1] !== '0' ? replaceArr[decimal[1]] + '分' : '';
+					    var result2 = a + b;
+					}
+				}
+
+				for (let i = 0, len = val.length; i < len; i++) {
+
+					if (val[i] === '0' && unitArr[len-i-1] !== '万' && unitArr[len-i-1] !== '亿' && unitArr[len-i-1] !== '兆') {
+						result += '零';
+					} else {
+						result += replaceArr[val[i]] + unitArr[len-i-1];
+					}
+				}
+
+				result = result.replace(/(零)\1+/g, '零').replace('零万', '万').replace('零亿', '亿').replace('亿万', '亿零')
+							   .replace('零兆', '兆').replace('兆亿', '兆零').replace('兆万', '兆零').replace(/^零|零+$/g, '').replace('壹拾', '拾');
+
+				result = result === '' ? '零' : result;
+
+				if (result2) {
+					result = result === '零' ? result2 : result + '元' + result2;
+				}
+
+				return result;
+			}
+			function doTransform () {
+				const value = document.getElementById('input').value.trim();
+				const result = document.getElementById('result');
+				result.innerHTML = transform(value);
+			}
+		</script>
+	</body>
+</html>
