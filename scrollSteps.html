@@ -1,0 +1,107 @@
+<html>
+	<head>
+		<title>Scroll Steps</title>
+		<style>
+			#content {
+				width: 500px;
+				margin: 50px auto;
+			}
+			h2 {
+				text-align: center;
+			}
+			ul {
+				list-style: none;
+				border-left: 1px solid #ddd;
+				padding: 0;
+				margin-bottom: 500px;
+			}
+			li {
+				padding-left: 60px;
+				position: relative;
+				white-space: pre-line;
+			}
+			li span {
+				position: absolute;
+				top: 0;
+				left: -10px;
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+				line-height: 20px;
+				border-radius: 50%;
+				text-align: center;
+				background: #1cc01c;
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id='content'>
+			<h2>元宵佳节传承岭南记忆与乡愁</h2>
+			<ul>
+				<li>
+					<span>1</span>新华社广州2月19日电（记者徐弘毅）元宵时节，“花城”广州张灯结彩，处处洋溢着浓浓的广府年味。广州在今年元宵期间将开展约35场主题文化活动，通过庆贺佳节留住城市记忆和岭南乡愁。
+
+	　　元宵节当天，广府庙会在广州市中心鸣锣开张，从农历正月十五至正月廿一，各色民俗文化活动纷纷登场。
+
+	　　作为广府庙会的重要部分，新春期间举办的越秀花灯会是许多广州家庭的必去之处。临近元宵节，28岁的广州市民梁力文一家坐着公交车从家中赶来越秀公园逛花灯。梁力文初为人父，女儿刚满5个月，这是他第一次带孩子来看花灯。
+				</li>
+				<li>
+					<span>2</span>今年越秀花灯会组展大型花灯56组，大型亮化30组，花境15处，浓郁的岭南风情成为今年花灯会的一大亮点。在《西关风情》主题灯组中，“鸡公榄”“晒腊肉”“箍盆”等广州民俗场景被制成一个个花灯，每个花灯都讲述着一个充满生活趣味的老故事，使游客重温岭南情怀。
+
+	　　“今年的花灯很不错，我们已经逛了一个多钟头了。”梁力文说，“新的一年，希望家人身体健康，平平安安。”
+
+	　　各类轨道交通的“庙会专列”成为城中流动的元宵风景。 广州有轨电车、广州地铁6号线在元宵节当天启动庙会专列，精心布置的车厢展示着广府文化的魅力。
+				</li>
+				<li>
+					<span>3</span>今年的广府庙会还汇聚了粤港澳大湾区的众多非遗项目，传统的香港扎作技艺、融合中西的澳门广彩、中山咀香园杏仁饼传统制作技艺以及珠海三灶竹草编织技艺等大湾区非遗项目纷纷亮相，让游客体验到包容、多元的广府记忆。
+
+	　　广州市白云区各村各社有舞狮闹元宵的传统，但各个村社的庆贺日期各不相同，从正月十一到正月十九，白云区几乎天天都有村社开锣闹元宵。
+				</li>
+				<li>
+					<span>4</span>在拥有爱国抗英斗争历史的三元里村，人们约定俗成在正月十八闹元宵，每年都有30多个友好村的舞狮队齐聚庆贺。这一传统在三元里村已有近600年历史，是村里一年一度的“村庆”。
+
+	　　82岁的李炳炎是土生土长的三元里村民，佳节临近，他正在村里的祠堂忙着为元宵活动做筹备。“村里闹元宵的传统是老祖宗传下来的，我们要将传统文化继承下去。”他说。
+				</li>
+				<li>
+					<span>5</span>李炳炎见证了三元里村几十年来的变迁。“我们这一代人过去都以务农为生，改革开放后，我一边做农民一边开始经商，还在40岁的时候开了汽修厂。”他说，“现在退休了，平常在村里的祠堂和其他长者一起喝喝茶、练练书画，真正享福了。”
+				</li>
+			</ul>
+		</div>
+		
+		
+		<script>
+			(function(){
+				const spanList = document.getElementsByTagName('span');
+				const liList = document.getElementsByTagName('li');
+				const ul = document.getElementsByTagName('ul')[0];
+				const left = ul.getBoundingClientRect().left;
+				onWheel();
+				if (window.addEventListener){
+					window.addEventListener('DOMMouseScroll', onWheel, false);
+				}
+				window.onmousewheel = document.onmousewheel = onWheel;
+				
+				function onWheel () {
+					[...spanList].forEach((item, index) => {
+						const top = item.getBoundingClientRect().top;
+						const liTop = liList[index].getBoundingClientRect().top;
+						if (liTop > 20*index) {
+							spanList[index].style.position = 'absolute';
+							spanList[index].style.top = 0;
+							spanList[index].style.left = - 10;
+							spanList[index].style.backgroundColor = '#1cc01c';
+						}else if (top < 20*index) {
+							spanList[index].style.position = 'fixed';
+							spanList[index].style.top = `${20*index}px`;
+							spanList[index].style.left = left - 10;
+							spanList[index].style.backgroundColor = '#aaa';
+						}
+					})
+				}
+			})()
+			
+			
+		</script>
+	</body>
+</html>
